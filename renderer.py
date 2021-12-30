@@ -3,6 +3,7 @@ import re
 from asciimatics.screen import Screen
 
 from tile_map import TileMap
+from score import Score
 
 
 def num_to_bg_colour(num):
@@ -45,11 +46,6 @@ class Renderer:
         self.tile_map = tile_map
         self.width = self.screen.width
         self.height = self.screen.height
-        self.border_row = self._setup_border_row()
-
-    def _setup_border_row(self) -> str:
-        map_size = self.tile_map.size
-        return " " + " ".join([" --- " for _ in range(map_size)]) + " "
 
     def _format_str(self, nums: List[int]):
         list_nums = [
@@ -58,7 +54,7 @@ class Renderer:
         str_nums = "‖".join(list_nums)
         return str_nums
 
-    def _print_row(self, nums: str, y: int, x: int) -> str:
+    def _print_row(self, nums: str, x: int, y: int) -> str:
         split_nums = re.findall("\d+", nums)
         i = 0
         curr_idx = 0
@@ -68,7 +64,6 @@ class Renderer:
             if char.isdigit():
                 char = nums[i : i + len(split_nums[curr_idx])]
                 jump = len(split_nums[curr_idx])
-                self.screen.print_at(char, x + i, 0)
                 curr_idx += 1
             self.screen.print_at(
                 char,
@@ -79,8 +74,13 @@ class Renderer:
             )
             i += jump
 
+    def _print_at(self, s: str, x: int, y: int):
+        self.screen.print_at(s, x, y, bg=Screen.COLOUR_DEFAULT)
+
     def render_map(self, x: int, y: int) -> None:
         for i, row in enumerate(self.tile_map.map):
             formatted_nums = self._format_str(row)
-            self._print_row(formatted_nums, y + i, x)
-        self.screen.refresh()
+            self._print_row(formatted_nums, x, y + i)
+
+    def render_score(self, x: int, y: int) -> None:
+        self._print_at(f"Current score: {Score.score}", x, y)
