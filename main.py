@@ -6,11 +6,15 @@ from input_handler import NormalInputHandler
 
 
 def main(screen: Screen) -> None:
-    tile_map = TileMap(4)
+    size = 4
+    tile_map = TileMap(size=size)
     input_handler = NormalInputHandler()
     renderer = Renderer(screen, tile_map)
     while True:
-        renderer.render()
+        renderer.render_map(
+            x=screen.width // 2 - (size * 5) // 2,
+            y=screen.height // 2 - size // 2,
+        )
         direction = input_handler.get_direction(screen)
         tile_map.move_direction(direction)
 

@@ -5,7 +5,7 @@ from constants import Direction
 
 
 class TileMap:
-    def __init__(self, size) -> None:
+    def __init__(self, size: int) -> None:
         self.size = size
         self.map = np.zeros((size, size))
         self.spawn_2_at_empty_pos()
@@ -57,7 +57,7 @@ class TileMap:
                 did_move = True
         return did_move
 
-    def combine_right(self, row) -> bool:
+    def combine_right(self, row: np.ndarray) -> bool:
         did_move = False
         for i in reversed(range(1, len(row))):
             if row[i] == row[i - 1] and row[i] != 0:
@@ -67,7 +67,7 @@ class TileMap:
                 did_move = True
         return did_move
 
-    def move_one_row(self, row) -> bool:
+    def move_one_row(self, row: np.ndarray) -> bool:
         did_move = False
         if not np.all(row == 0):
             for i in reversed(range(1, len(row))):
