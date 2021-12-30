@@ -1,28 +1,30 @@
 from asciimatics.event import KeyboardEvent
 from asciimatics.screen import Screen
 
-from constants import Direction
+from constants import Action
 
 
 class NormalInputHandler:
     def __init__(self) -> None:
         self._valid_input = {
-            ord("w"): Direction.UP,
-            ord("s"): Direction.DOWN,
-            ord("a"): Direction.LEFT,
-            ord("d"): Direction.RIGHT,
+            ord("w"): Action.UP,
+            ord("s"): Action.DOWN,
+            ord("a"): Action.LEFT,
+            ord("d"): Action.RIGHT,
             # Arrow keys
-            Screen.KEY_UP: Direction.UP,
-            Screen.KEY_DOWN: Direction.DOWN,
-            Screen.KEY_LEFT: Direction.LEFT,
-            Screen.KEY_RIGHT: Direction.RIGHT,
+            Screen.KEY_UP: Action.UP,
+            Screen.KEY_DOWN: Action.DOWN,
+            Screen.KEY_LEFT: Action.LEFT,
+            Screen.KEY_RIGHT: Action.RIGHT,
+            # Exit
+            ord("q"): Action.QUIT,
         }
 
     @property
     def valid_input(self):
         return self._valid_input
 
-    def get_direction(self, screen: Screen) -> Direction:
+    def get_direction(self, screen: Screen) -> Action:
         while True:
             screen.wait_for_input(50)
             ev = screen.get_event()

@@ -2,7 +2,7 @@ from typing import Tuple
 import numpy as np
 import random
 
-from constants import Direction
+from constants import Action
 
 
 class TileMap:
@@ -18,16 +18,16 @@ class TileMap:
         else:
             self.map[y, x] = 4
 
-    def move_direction(self, direction: Direction) -> int:
+    def move_direction(self, direction: Action) -> int:
         did_move = False
         score = 0
-        if direction == Direction.RIGHT:
+        if direction == Action.RIGHT:
             did_move, score = self._move_right()
-        elif direction == Direction.LEFT:
+        elif direction == Action.LEFT:
             did_move, score = self._move_left()
-        elif direction == Direction.UP:
+        elif direction == Action.UP:
             did_move, score = self._move_up()
-        elif direction == Direction.DOWN:
+        elif direction == Action.DOWN:
             did_move, score = self._move_down()
         if did_move:
             self._spawn_2_at_empty_pos()

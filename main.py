@@ -4,6 +4,7 @@ from tile_map import TileMap
 from renderer import Renderer
 from input_handler import NormalInputHandler
 from score import Score
+from constants import Action
 
 
 def main(screen: Screen) -> None:
@@ -29,6 +30,8 @@ def main(screen: Screen) -> None:
         )
         screen.refresh()
         direction = input_handler.get_direction(screen)
+        if direction == Action.QUIT:
+            return
         Score.add_points(tile_map.move_direction(direction))
 
 
