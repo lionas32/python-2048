@@ -16,6 +16,8 @@ def main(screen: Screen) -> None:
     tile_map_y = screen.height // 2 - size // 2
     score_x = tile_map_x
     score_y = screen.height // 2 + size // 2 + 1
+    highscore_x = tile_map_x
+    highscore_y = screen.height // 2 + size // 2 + 2
     while True:
         screen.clear_buffer(
             Screen.COLOUR_WHITE, Screen.A_NORMAL, Screen.COLOUR_DEFAULT
@@ -28,9 +30,14 @@ def main(screen: Screen) -> None:
             x=score_x,
             y=score_y,
         )
+        renderer.render_highscore(
+            x=highscore_x,
+            y=highscore_y,
+        )
         screen.refresh()
         direction = input_handler.get_direction(screen)
         if direction == Action.QUIT:
+            Score.overwrite_highscore()
             return
         Score.add_points(tile_map.move_direction(direction))
 

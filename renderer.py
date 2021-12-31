@@ -84,3 +84,6 @@ class Renderer:
 
     def render_score(self, x: int, y: int) -> None:
         self._print_at(f"Current score: {Score.score}", x, y)
+
+    def render_highscore(self, x: int, y: int) -> None:
+        self._print_at(f"Highscore: {Score.highscore}", x, y)
