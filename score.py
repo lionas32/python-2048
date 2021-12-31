@@ -1,7 +1,8 @@
+from __future__ import annotations
 import os
 
 
-def _highscore_static_init(cls):
+def _highscore_static_init(cls: Score) -> Score:
     cls._setup_highscore()
     return cls
 
@@ -14,19 +15,19 @@ class Score:
     prev_highscore = None
 
     @staticmethod
-    def add_points(points):
+    def add_points(points: int) -> None:
         Score.score += points
         if Score.score > Score.prev_highscore:
             Score.highscore = Score.score
 
     @staticmethod
-    def overwrite_highscore():
+    def overwrite_highscore() -> None:
         if Score.highscore > Score.prev_highscore:
             with open(".env", "w") as file:
                 file.write(f"HIGHSCORE2048={Score.highscore}")
 
     @classmethod
-    def _setup_highscore(cls):
+    def _setup_highscore(cls: Score) -> None:
         if not os.path.exists(".env"):
             with open(".env", "w+") as file:
                 file.write("HIGHSCORE2048=0")

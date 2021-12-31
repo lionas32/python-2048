@@ -1,3 +1,4 @@
+from typing import Dict
 from asciimatics.event import KeyboardEvent
 from asciimatics.screen import Screen
 
@@ -21,7 +22,7 @@ class NormalInputHandler:
         }
 
     @property
-    def valid_input(self):
+    def valid_input(self) -> Dict[int, Action]:
         return self._valid_input
 
     def get_direction(self, screen: Screen) -> Action:

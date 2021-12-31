@@ -6,7 +6,7 @@ from tile_map import TileMap
 from score import Score
 
 
-def num_to_bg_colour(num):
+def num_to_bg_colour(num: int) -> int:
     BG_FALLBACK = 240
     if num == "2":
         return 223
@@ -25,7 +25,7 @@ def num_to_bg_colour(num):
     return BG_FALLBACK
 
 
-def num_to_fg_colour(num):
+def num_to_fg_colour(num: int) -> int:
     FG_FALLBACK = 15
     if num == "2":
         return 58
