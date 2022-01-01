@@ -41,15 +41,26 @@ def num_to_fg_colour(num: int) -> int:
 
 
 class Renderer:
-    def __init__(self, screen: Screen, tile_map: TileMap) -> None:
+    def __init__(
+        self, screen: Screen, tile_map: TileMap, cell_width: int
+    ) -> None:
         self.screen = screen
         self.tile_map = tile_map
         self.width = self.screen.width
         self.height = self.screen.height
+        self.cell_width = cell_width
+        # Positions, should maybe me moved into Score and Tilemap?
+        self.map_x = screen.width // 2 - (tile_map.size * cell_width) // 2
+        self.map_y = screen.height // 2 - tile_map.size // 2
+        self.score_x = self.map_x
+        self.score_y = screen.height // 2 + tile_map.size // 2 + 1
+        self.highscore_x = self.map_x
+        self.highscore_y = self.score_y + 1
 
     def _format_str(self, nums: List[int]):
         list_nums = [
-            str(int(num) if num != 0 else " ").center(5) for num in nums
+            str(int(num) if num != 0 else " ").center(self.cell_width)
+            for num in nums
         ]
         str_nums = "‖".join(list_nums)
         return str_nums
@@ -77,13 +88,17 @@ class Renderer:
     def _print_at(self, s: str, x: int, y: int):
         self.screen.print_at(s, x, y, bg=Screen.COLOUR_DEFAULT)
 
-    def render_map(self, x: int, y: int) -> None:
+    def render_map(self) -> None:
         for i, row in enumerate(self.tile_map.map):
             formatted_nums = self._format_str(row)
-            self._print_row(formatted_nums, x, y + i)
+            self._print_row(formatted_nums, self.map_x, self.map_y + i)
 
-    def render_score(self, x: int, y: int) -> None:
-        self._print_at(f"Current score: {Score.score}", x, y)
+    def render_score(self) -> None:
+        self._print_at(
+            f"Current score: {Score.score}", self.score_x, self.score_y
+        )
 
-    def render_highscore(self, x: int, y: int) -> None:
-        self._print_at(f"Highscore: {Score.highscore}", x, y)
+    def render_highscore(self) -> None:
+        self._print_at(
+            f"Highscore: {Score.highscore}", self.highscore_x, self.highscore_y
+        )

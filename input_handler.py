@@ -25,7 +25,7 @@ class NormalInputHandler:
     def valid_input(self) -> Dict[int, Action]:
         return self._valid_input
 
-    def get_direction(self, screen: Screen) -> Action:
+    def get_action(self, screen: Screen) -> Action:
         while True:
             screen.wait_for_input(50)
             ev = screen.get_event()
