@@ -15,7 +15,7 @@ class GameManager:
         screen: Screen,
     ) -> None:
         self.tilemap = tilemap
-        self.renderer = Renderer(screen, tilemap, cell_width=5)
+        self.renderer = Renderer(screen, tilemap, cell_width=1)
         self.input_handler = input_handler
 
     def render(self) -> None:
